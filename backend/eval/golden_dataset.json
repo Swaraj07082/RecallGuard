@@ -1,0 +1,146 @@
+[
+  {
+    "id": "aitwin_what_is",
+    "query": "What is an AI Twin?",
+    "expected_source_site": "aitwin.me",
+    "must_include": ["twin", "avatar"],
+    "relevant_url_contains": "/blog/what-is-an-ai-twin",
+    "expected_output": "An AI Twin is a real-time, conversational digital double of a person or agent: a human-like face with matching voice that answers live via an AI agent rather than a fixed script."
+  },
+  {
+    "id": "aitwin_create",
+    "query": "How do I create an AI twin?",
+    "expected_source_site": "aitwin.me",
+    "must_include": ["create", "twin"],
+    "relevant_url_contains": "/docs/create-twin",
+    "expected_output": "Use the Create Twin Embed SDK or Create Twin flow to let users build a private AI twin with face, voice, and optional brain, then embed that hosted experience in your product."
+  },
+  {
+    "id": "aitwin_player",
+    "query": "How do I integrate the AI Twin Player SDK?",
+    "expected_source_site": "aitwin.me",
+    "must_include": ["player", "sdk"],
+    "relevant_url_contains": "/docs/player",
+    "expected_output": "Integrate the @streamoji/aitwin React package or the drop-in HTML script-tag widget to render real-time AI twin avatars with TTS lipsync in your site or app."
+  },
+  {
+    "id": "aitwin_get_twins",
+    "query": "How does the Get Twins API work?",
+    "expected_source_site": "aitwin.me",
+    "must_include": ["getTwins", "api"],
+    "relevant_url_contains": "/docs/get-twins",
+    "expected_output": "Call the getTwins Cloud Function with auth and optional filters to list AI twins for a user or API client and receive a documented response shape."
+  },
+  {
+    "id": "aitwin_join_meeting",
+    "query": "Can an AI Twin join Google Meet or Zoom?",
+    "expected_source_site": "aitwin.me",
+    "must_include": ["meeting", "join"],
+    "relevant_url_contains": "/docs/join-meeting",
+    "expected_output": "Yes. Ai Twin can join Google Meet, Zoom, or Microsoft Teams: paste a meeting link, pick a twin, and join from the dashboard."
+  },
+  {
+    "id": "aitwin_livekit",
+    "query": "How do LiveKit Agents connect to an AI Twin avatar?",
+    "expected_source_site": "aitwin.me",
+    "must_include": ["livekit", "speakText"],
+    "relevant_url_contains": "/docs/livekit",
+    "expected_output": "Connect LiveKit Agents to an Ai Twin avatar, turn off agent audio, then call speakText in the browser so the twin handles TTS and lipsync."
+  },
+  {
+    "id": "aitwin_pricing",
+    "query": "What is Ai Twin pricing?",
+    "expected_source_site": "aitwin.me",
+    "must_include": ["pricing"],
+    "relevant_url_contains": "/pricing",
+    "expected_output": "Ai Twin pricing is described on the aitwin.me pricing page, covering plans and usage for creating and running AI twins."
+  },
+  {
+    "id": "aitwin_docs_hub",
+    "query": "Where are Ai Twin integration docs for Create Twin Embed SDK?",
+    "expected_source_site": "aitwin.me",
+    "must_include": ["embed", "sdk"],
+    "relevant_url_contains": "/docs",
+    "expected_output": "Integration docs live under aitwin.me/docs, including the Create Twin Embed SDK guide for embedding the hosted create-twin iframe."
+  },
+  {
+    "id": "aitwin_heygen_alt",
+    "query": "Is Ai Twin a good HeyGen alternative?",
+    "expected_source_site": "aitwin.me",
+    "must_include": ["heygen", "alternative"],
+    "relevant_url_contains": "/blog/best-heygen-alternative",
+    "expected_output": "Ai Twin positions itself as a strong HeyGen alternative for real-time conversational AI avatars, covered in the best HeyGen alternative 2026 blog post."
+  },
+  {
+    "id": "aitwin_browser_avatars",
+    "query": "What are browser-rendered AI avatars?",
+    "expected_source_site": "aitwin.me",
+    "must_include": ["browser", "avatar"],
+    "relevant_url_contains": "/blog/browser-rendered-ai-avatars",
+    "expected_output": "Browser-rendered AI avatars run in the web client (no heavy native runtime), enabling real-time conversational faces and lipsync directly in the browser."
+  },
+  {
+    "id": "streamoji_welcome",
+    "query": "What is Streamoji Avatars?",
+    "expected_source_site": "avatars.streamoji.com",
+    "must_include": ["streamoji", "avatar"],
+    "relevant_url_contains": "/docs/welcome",
+    "expected_output": "Streamoji Avatars is a cross-platform 3D avatar system for creating, customizing, and integrating avatars into games, social apps, VR/AR, and web applications."
+  },
+  {
+    "id": "streamoji_glb",
+    "query": "What file format do Streamoji avatars export?",
+    "expected_source_site": "avatars.streamoji.com",
+    "must_include": ["glb"],
+    "relevant_url_contains": "/docs/welcome",
+    "expected_output": "Streamoji avatars export as GLB files (typically about 2–5MB), optimized for real-time rendering across platforms."
+  },
+  {
+    "id": "streamoji_blendshapes",
+    "query": "How many ARKit blendshapes do Streamoji avatars support?",
+    "expected_source_site": "avatars.streamoji.com",
+    "must_include": ["52", "blendshape"],
+    "relevant_url_contains": "/docs",
+    "expected_output": "Streamoji avatars include a standard humanoid rig with 52 ARKit-compatible facial blendshapes for expressions and facial tracking."
+  },
+  {
+    "id": "streamoji_auth",
+    "query": "How does Streamoji authentication work?",
+    "expected_source_site": "avatars.streamoji.com",
+    "must_include": ["firebase", "auth"],
+    "relevant_url_contains": "/docs/authentication",
+    "expected_output": "Streamoji uses Firebase Authentication; configuring Firebase auth is required to access the API for avatar operations."
+  },
+  {
+    "id": "streamoji_credits",
+    "query": "How do Streamoji Avatars credits consumption work?",
+    "expected_source_site": "avatars.streamoji.com",
+    "must_include": ["credit"],
+    "relevant_url_contains": "/docs/credits-consumption",
+    "expected_output": "Streamoji documents how credits are consumed for avatar generation and related API usage on the credits-consumption docs page."
+  },
+  {
+    "id": "streamoji_unity",
+    "query": "How do I integrate Streamoji avatars in Unity?",
+    "expected_source_site": "avatars.streamoji.com",
+    "must_include": ["unity"],
+    "relevant_url_contains": "/docs/unity-sdk",
+    "expected_output": "Use the Streamoji Unity SDK docs to import GLB avatars with the humanoid rig and blendshapes into Unity projects."
+  },
+  {
+    "id": "streamoji_web_quickstart",
+    "query": "Streamoji web SDK quickstart guide",
+    "expected_source_site": "avatars.streamoji.com",
+    "must_include": ["web", "sdk"],
+    "relevant_url_contains": "/docs/web-quickstart",
+    "expected_output": "Follow the Streamoji web quickstart docs to authenticate, load the web SDK, and render a customized avatar in a browser app."
+  },
+  {
+    "id": "streamoji_faq",
+    "query": "Streamoji Avatars FAQ common questions",
+    "expected_source_site": "avatars.streamoji.com",
+    "must_include": ["faq"],
+    "relevant_url_contains": "/docs/faq",
+    "expected_output": "The Streamoji FAQ covers common setup, integration, avatar format, blendshapes, and troubleshooting questions for developers."
+  }
+]

@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# RecallGuard
 
-## Getting Started
+A hands-on project for learning **production-style RAG guardrails and evaluation**.
 
-First, run the development server:
+RecallGuard is a single-turn RAG chatbot over product docs (Ai Twin + Streamoji), with:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Input guardrails** — block query PII and prompt-injection attempts
+- **Context guardrails** — redact PII in retrieved chunks before generation
+- **Output screening** — score the model answer against a policy (prompt leak, secrets, jailbreak ack, output PII)
+- **Offline evals** — DeepEval metrics on a golden set (faithfulness, answer relevancy, contextual precision/recall/relevancy)
+- **Online evals** — sampled live turns scored with the RAG triad and optionally sent to Langfuse
+- **UI workspace** — Next.js front end wired to the FastAPI RAG API
+
+Built to practice the full loop: retrieve → guard → generate → screen → evaluate.
+
+## Architecture
+
+```text
+User message
+  → PII block + injection block
+  → retrieve (Chroma) + rerank
+  → redact chunk PII
+  → generate (Groq)
+  → output policy screen
+  → answer (+ optional online eval sample)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+| Layer | What it does |
+|--------|----------------|
+| `backend/guardrails/` | Query PII, injection, chunk redact, output policy |
+| `backend/retriever.py` + `reranker.py` | Vector search + cross-encoder rerank |
+| `backend/generator.py` | Context-grounded answer generation |
+| `backend/eval/` | Offline metrics, regression, online triad |
+| `src/` | Workspace UI (chat, corpus, policies, eval) |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Quick start
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1. Backend
 
-## Learn More
+```bash
+pip install -r backend/requirements.txt
+cp .env.example .env
+# set GROQ_API_KEY in .env
 
-To learn more about Next.js, take a look at the following resources:
+uvicorn backend.main:app --reload --port 8000
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Optional first index (crawls product sitemaps into Chroma):
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+curl -X POST http://localhost:8000/ingest
+```
 
-## Deploy on Vercel
+### 2. Frontend
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm install
+cp .env.example .env.local
+# NEXT_PUBLIC_API_URL=http://localhost:8000
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
+## API
+
+| Method | Path | Purpose |
+|--------|------|---------|
+| `GET` | `/health` | Liveness |
+| `GET` | `/status` | Indexed chunk count |
+| `POST` | `/chat` | Guarded RAG turn |
+| `POST` | `/query` | Same pipeline with query echo |
+| `POST` | `/ingest` | Clear store, crawl sitemaps, re-index |
+
+## Guardrails (what to look at)
+
+1. **Query PII** — `backend/guardrails/pii.py` → block before retrieve  
+2. **Prompt injection** — `backend/guardrails/injection.py` → block before retrieve  
+3. **Chunk PII** — `sanitize_chunks()` after retrieve, before generate  
+4. **Output policy** — `backend/guardrails/output_policy.py` → score/refuse/redact before return  
+
+## Evals (what to look at)
+
+- Offline scripts under `backend/eval/` (`faithfulness.py`, `answerRelevancy.py`, contextual metrics, `regression_test.py`)
+- Golden cases in `backend/eval/golden_dataset.json`
+- Online sampling in `backend/eval/online_eval.py` (set `OPENROUTER_API_KEY` + optional Langfuse keys)
+
+```bash
+# example offline run (from repo root, with deps + keys configured)
+python -m backend.eval.regression_test
+```
+
+## Environment
+
+Copy `.env.example` → `.env` (API) and `.env.local` (Next). Never commit real keys — `.env*` is gitignored except `.env.example`.
+
+## Why this repo exists
+
+Most RAG demos stop at “retrieve + answer.” RecallGuard focuses on the parts that matter in real systems:
+
+- stop bad inputs early  
+- don’t feed raw PII into the model  
+- catch bad outputs after generation  
+- measure quality offline and on live traffic  
+
+## License
+
+Personal learning project.
